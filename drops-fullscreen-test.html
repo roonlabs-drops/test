@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drops fullscreen test</title>
+  <style>
+    :root {
+      --bg: #fafafa;
+      --card: #ffffff;
+      --fg: #1a1a1a;
+      --muted: #6b6b6b;
+      --border: #e5e5e5;
+      --drops: #2da44e;
+      --https: #1f6feb;
+      --js: #8250df;
+      --console-bg: #0d0d0d;
+      --console-fg: #d4d4d4;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1a1a1a;
+        --card: #2a2a2a;
+        --fg: #e5e5e5;
+        --muted: #888;
+        --border: #3a3a3a;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 24px 20px 48px;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.45;
+    }
+    h1 { font-size: 24px; margin: 0 0 4px; font-weight: 700; }
+    .intro { color: var(--muted); margin: 0 0 24px; font-size: 14px; }
+    h2 {
+      font-size: 12px;
+      margin: 24px 0 8px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      font-weight: 600;
+    }
+    .group {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .row {
+      display: block;
+      padding: 12px 14px;
+      border-radius: 8px;
+      color: var(--fg);
+      text-decoration: none;
+      font-size: 15px;
+      border-left: 4px solid transparent;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+      font-family: inherit;
+      border-top: 1px solid transparent;
+      border-right: 1px solid transparent;
+      border-bottom: 1px solid transparent;
+      cursor: pointer;
+    }
+    .row + .row { border-top-color: var(--border); }
+    .row:active { background: var(--bg); }
+    .row.drops { border-left-color: var(--drops); }
+    .row.https { border-left-color: var(--https); }
+    .row.js { border-left-color: var(--js); }
+    .row .label {
+      display: block;
+      font-family: "SF Mono", Menlo, Consolas, monospace;
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    #console {
+      margin-top: 16px;
+      background: var(--console-bg);
+      color: var(--console-fg);
+      padding: 12px;
+      border-radius: 8px;
+      font-family: "SF Mono", Menlo, Consolas, monospace;
+      font-size: 12px;
+      white-space: pre-wrap;
+      min-height: 80px;
+      max-height: 240px;
+      overflow-y: auto;
+    }
+    #console .ts { color: #888; }
+    #console .ok { color: #4ade80; }
+    #console .warn { color: #fbbf24; }
+  </style>
+</head>
+<body>
+  <h1>Drops fullscreen test</h1>
+  <p class="intro">
+    Tap a row. <strong>drops://</strong> links should close this webview and route in-app.
+    <strong>https://</strong> links should open the system browser (webview stays).
+    The JS button calls the dismiss bridge.
+  </p>
+
+  <h2>drops:// (in-app navigation)</h2>
+  <div class="group">
+    <a class="row drops" href="drops://drop/019b3451-9faa-756d-b37b-5855a2411f43">
+      Open a drop
+      <span class="label">drops://drop/&lt;id&gt;</span>
+    </a>
+    <a class="row drops" href="drops://profile/usr_8x4Kp2">
+      Open a profile
+      <span class="label">drops://profile/&lt;id&gt;</span>
+    </a>
+    <a class="row drops" href="drops://artist/191:0:512674">
+      Open an artist
+      <span class="label">drops://artist/&lt;id&gt;</span>
+    </a>
+    <a class="row drops" href="drops://createdrop?trackId=202:0:51899234">
+      Create a drop with this track
+      <span class="label">drops://createdrop?trackId=&lt;id&gt;</span>
+    </a>
+    <a class="row drops" href="drops://search?q=lofi">
+      Search &quot;lofi&quot;
+      <span class="label">drops://search?q=…</span>
+    </a>
+    <a class="row drops" href="drops://hashtag/summer2026">
+      Hashtag feed
+      <span class="label">drops://hashtag/&lt;tag&gt;</span>
+    </a>
+    <a class="row drops" href="drops://feed">
+      Home feed
+      <span class="label">drops://feed</span>
+    </a>
+    <a class="row drops" href="drops://settings/notifications">
+      Notification settings
+      <span class="label">drops://settings/notifications</span>
+    </a>
+  </div>
+
+  <h2>https:// (external browser)</h2>
+  <div class="group">
+    <a class="row https" href="https://blog.drops.app">
+      Drops blog
+      <span class="label">https://blog.drops.app</span>
+    </a>
+    <a class="row https" href="https://example.com">
+      Example.com
+      <span class="label">https://example.com</span>
+    </a>
+  </div>
+
+  <h2>JS bridge (close webview)</h2>
+  <div class="group">
+    <button class="row js" onclick="dismiss()">
+      Call window.drops.dismiss()
+      <span class="label">closes the webview via the JS bridge</span>
+    </button>
+  </div>
+
+  <div id="console">awaiting taps…</div>
+
+  <script>
+    function log(line, cls) {
+      const el = document.getElementById('console');
+      const ts = new Date().toLocaleTimeString();
+      const cls2 = cls ? ' class="' + cls + '"' : '';
+      el.innerHTML += '\n<span class="ts">' + ts + '</span>  <span' + cls2 + '>' + line + '</span>';
+      el.scrollTop = el.scrollHeight;
+    }
+
+    function dismiss() {
+      if (window.drops && typeof window.drops.dismiss === 'function') {
+        log('window.drops.dismiss() → calling', 'ok');
+        window.drops.dismiss();
+      } else {
+        log('window.drops.dismiss is unavailable — bridge not registered', 'warn');
+      }
+    }
+
+    document.querySelectorAll('a.row').forEach(function(a) {
+      a.addEventListener('click', function() {
+        log('tap → ' + a.getAttribute('href'), 'ok');
+      });
+    });
+
+    log('page ready · bridge: ' +
+      (window.drops && typeof window.drops.dismiss === 'function' ? 'detected' : 'not detected yet'));
+  </script>
+</body>
+</html>
