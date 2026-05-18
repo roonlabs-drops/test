@@ -107,47 +107,127 @@
     The JS button calls the dismiss bridge.
   </p>
 
-  <h2>drops:// (in-app navigation)</h2>
+  <h2>drops:// drop / album / track / artist</h2>
   <div class="group">
-    <a class="row drops" href="drops://drop/019b3451-9faa-756d-b37b-5855a2411f43">
-      Open a drop
-      <span class="label">drops://drop/&lt;id&gt;</span>
+    <a class="row drops" href="drops://drop/019deee8-7efb-76af-8121-c3e09f406691">
+      Open drop — &quot;anything&quot; (Adrianne Lenker)
+      <span class="label">drops://drop/019deee8-7efb-76af-8121-c3e09f406691</span>
     </a>
-    <a class="row drops" href="drops://profile/usr_8x4Kp2">
-      Open a profile
-      <span class="label">drops://profile/&lt;id&gt;</span>
+    <a class="row drops" href="drops://drop/019c2fe1-912a-74ed-a838-bd1371960ad1">
+      Open drop — &quot;Shape Of My Heart&quot; (Sting)
+      <span class="label">drops://drop/019c2fe1-912a-74ed-a838-bd1371960ad1</span>
+    </a>
+    <a class="row drops" href="drops://album/200:0:vkofr2wk869rc">
+      Album — Ten Summoner&apos;s Tales (Sting)
+      <span class="label">drops://album/200:0:vkofr2wk869rc</span>
+    </a>
+    <a class="row drops" href="drops://album/200:0:jkvu78ylrnjxa">
+      Album — songs (Adrianne Lenker)
+      <span class="label">drops://album/200:0:jkvu78ylrnjxa</span>
+    </a>
+    <a class="row drops" href="drops://track/202:0:51899234">
+      Track — Shape Of My Heart
+      <span class="label">drops://track/202:0:51899234</span>
+    </a>
+    <a class="row drops" href="drops://track/202:0:99274534">
+      Track — anything
+      <span class="label">drops://track/202:0:99274534</span>
     </a>
     <a class="row drops" href="drops://artist/191:0:512674">
-      Open an artist
-      <span class="label">drops://artist/&lt;id&gt;</span>
+      Artist — Sting
+      <span class="label">drops://artist/191:0:512674</span>
+    </a>
+    <a class="row drops" href="drops://artist/191:0:966849">
+      Artist — Adrianne Lenker
+      <span class="label">drops://artist/191:0:966849</span>
+    </a>
+    <a class="row drops" href="drops://artist/191:0:512674/albums">
+      Artist albums view — Sting
+      <span class="label">drops://artist/191:0:512674/albums</span>
+    </a>
+  </div>
+
+  <h2>drops:// profile / followers / following</h2>
+  <div class="group">
+    <a class="row drops" href="drops://profile/01956227-4365-72c9-87a5-5cb74f6bdd12">
+      Profile — Ayodeji
+      <span class="label">drops://profile/01956227-4365-72c9-87a5-5cb74f6bdd12</span>
+    </a>
+    <a class="row drops" href="drops://profile/019dee0b-1fb7-763b-8a54-4a7b32d631bd">
+      Profile — glidingBeat
+      <span class="label">drops://profile/019dee0b-1fb7-763b-8a54-4a7b32d631bd</span>
+    </a>
+    <a class="row drops" href="drops://profile/01956227-4365-72c9-87a5-5cb74f6bdd12/followers">
+      Followers of Ayodeji
+      <span class="label">drops://profile/&lt;id&gt;/followers</span>
+    </a>
+    <a class="row drops" href="drops://profile/01956227-4365-72c9-87a5-5cb74f6bdd12/following">
+      Following of Ayodeji
+      <span class="label">drops://profile/&lt;id&gt;/following</span>
+    </a>
+    <a class="row drops" href="drops://me">
+      My profile
+      <span class="label">drops://me</span>
+    </a>
+  </div>
+
+  <h2>drops:// create / search / hashtag</h2>
+  <div class="group">
+    <a class="row drops" href="drops://createdrop">
+      Create drop (empty)
+      <span class="label">drops://createdrop</span>
     </a>
     <a class="row drops" href="drops://createdrop?trackId=202:0:51899234">
-      Create a drop with this track
-      <span class="label">drops://createdrop?trackId=&lt;id&gt;</span>
+      Drop this track — Shape Of My Heart
+      <span class="label">drops://createdrop?trackId=202:0:51899234</span>
     </a>
-    <a class="row drops" href="drops://search?q=lofi">
-      Search &quot;lofi&quot;
+    <a class="row drops" href="drops://createdrop?trackId=202:0:99274534">
+      Drop this track — anything
+      <span class="label">drops://createdrop?trackId=202:0:99274534</span>
+    </a>
+    <a class="row drops" href="drops://search?q=adrianne%20lenker">
+      Search &quot;Adrianne Lenker&quot;
       <span class="label">drops://search?q=…</span>
     </a>
-    <a class="row drops" href="drops://hashtag/summer2026">
-      Hashtag feed
-      <span class="label">drops://hashtag/&lt;tag&gt;</span>
+    <a class="row drops" href="drops://hashtag/gem">
+      Hashtag — #gem
+      <span class="label">drops://hashtag/gem</span>
     </a>
+  </div>
+
+  <h2>drops:// navigation / settings</h2>
+  <div class="group">
     <a class="row drops" href="drops://feed">
       Home feed
       <span class="label">drops://feed</span>
+    </a>
+    <a class="row drops" href="drops://notifications">
+      Notifications drawer
+      <span class="label">drops://notifications</span>
+    </a>
+    <a class="row drops" href="drops://invite">
+      Beta invites
+      <span class="label">drops://invite</span>
     </a>
     <a class="row drops" href="drops://settings/notifications">
       Notification settings
       <span class="label">drops://settings/notifications</span>
     </a>
+    <a class="row drops" href="drops://settings/editProfile">
+      Edit profile
+      <span class="label">drops://settings/editProfile</span>
+    </a>
   </div>
 
   <h2>https:// (external browser)</h2>
   <div class="group">
-    <a class="row https" href="https://blog.drops.app">
-      Drops blog
-      <span class="label">https://blog.drops.app</span>
+    <a class="row https" href="https://commsbridge.roonlabs.net">
+      Commsbridge home
+      <span class="label">https://commsbridge.roonlabs.net</span>
+    </a>
+    <a class="row https" href="https://store.roonlabs.com/portable-dacs/?utm_source=commsbridge&amp;utm_medium=push&amp;utm_campaign=test">
+      Roon store — DACs (UTM-tagged)
+      <span class="label">https://store.roonlabs.com/…?utm_campaign=test</span>
     </a>
     <a class="row https" href="https://example.com">
       Example.com
